@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Paramet Sintrako — Personal Landing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Paramet Sintrako - student | portfolio landing page" />
+  <style>
+    :root{
+      --bg:#0b0f12;
+      --card: rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.03);
+      --neon: #00ff8a; /* neon green */
+      --muted: #9aa7b0;
+      --accent: #06f08a;
+      --radius: 14px;
+      --glass-blur: 8px;
+      --max-width: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;padding:32px;font-family:'Kanit',system-ui,Arial,Helvetica,sans-serif;background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(0,255,138,0.06), transparent),
+        radial-gradient(800px 400px at 90% 90%, rgba(0,200,255,0.03), transparent),
+        var(--bg);
+      color:#e6eef3;-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      display:flex;justify-content:center;
+    }
+    .container{width:100%;max-width:var(--max-width);display:grid;grid-template-columns:28% 1fr;gap:28px}
+    /* Mobile stack */
+    @media (max-width:900px){
+      .container{grid-template-columns:1fr;padding:0 16px}
+    }
+
+    /* Glass card */
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(var(--glass-blur));
+      padding:20px;border-radius:var(--radius);box-shadow: 0 6px 24px rgba(2,6,12,0.6);
+    }
+
+    /* SIDEBAR */
+    .sidebar{display:flex;flex-direction:column;gap:18px;height:fit-content}
+    .profile{display:flex;gap:16px;align-items:center}
+    .avatar{
+      width:88px;height:88px;border-radius:18px;flex:0 0 88px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#062017,#0f2f1b);border:1px solid rgba(255,255,255,0.03);
+    }
+    .avatar svg{width:72px;height:72px;filter:drop-shadow(0 4px 18px rgba(0,255,138,0.08))}
+    .meta h2{margin:0;font-size:18px;color:#fff}
+    .meta p{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+    .bio{color:var(--muted);font-size:14px}
+    .contacts{display:flex;gap:10px;margin-top:8px}
+    .icon-btn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);border:1px solid rgba(255,255,255,0.03);color:var(--neon);text-decoration:none}
+    .icon-btn svg{width:18px;height:18px}
+
+    /* MAIN */
+    .main{display:flex;flex-direction:column;gap:18px}
+
+    /* Resume card */
+    .resume{display:flex;flex-direction:column;gap:12px}
+    .greeting{display:flex;align-items:flex-start;gap:16px}
+    .greeting h1{margin:0;font-size:20px}
+    .typing{color:var(--neon);font-weight:600}
+    .stack-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .chip{background:linear-gradient(180deg, rgba(0,255,138,0.06), rgba(0,255,138,0.02));color:var(--neon);padding:8px 10px;border-radius:999px;font-size:13px;border:1px solid rgba(0,255,138,0.06)}
+
+    /* Projects grid */
+    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    @media (max-width:900px){.projects-grid{grid-template-columns:1fr}}
+    .project-card{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.01));border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:8px}
+    .project-card h3{margin:0;font-size:15px}
+    .project-card p{margin:0;color:var(--muted);font-size:13px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-size:12px;color:var(--muted);background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:8px}
+    .cta{margin-top:auto;display:flex;gap:8px;align-items:center}
+    .btn{background:linear-gradient(90deg,var(--neon),#70ffd0);color:#06110b;padding:8px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:600;box-shadow:0 6px 18px rgba(0,255,138,0.08)}
+
+    /* Contribution grid */
+    .contrib{padding:14px;border-radius:12px}
+    .contrib-grid{display:grid;grid-template-columns:repeat(12,14px);gap:6px}
+    .square{width:14px;height:14px;border-radius:3px;background:rgba(255,255,255,0.03);position:relative;cursor:pointer}
+    .square[data-level="1"]{background:rgba(0,255,138,0.12)}
+    .square[data-level="2"]{background:rgba(0,255,138,0.24)}
+    .square[data-level="3"]{background:rgba(0,255,138,0.42)}
+    .square[data-level="4"]{background:var(--neon)}
+    .square:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(0,255,138,0.06)}
+
+    /* Tooltip */
+    .tooltip{position:absolute;background:#02110b;color:var(--neon);padding:6px 8px;border-radius:6px;font-size:12px;border:1px solid rgba(0,255,138,0.07);white-space:nowrap;transform:translate(-50%,-120%);left:50%;top:0;pointer-events:none;opacity:0;transition:opacity .12s}
+    .square:hover .tooltip{opacity:1}
+
+    /* small tweaks */
+    .section-title{display:flex;justify-content:space-between;align-items:center}
+    .muted-small{color:var(--muted);font-size:13px}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="card profile">
+        <div class="avatar" aria-hidden>
+          <!-- simple svg avatar -->
+           <img src="screenshot.png" alt="profile-pic" class="avatar">
+        </div>
+        <div class="meta">
+          <h2>Paramet Sintrako</h2>
+          <p>student</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="bio">Hello, nice to meet you. ยินดีที่ได้รู้จัก — ผมกำลังเรียนรู้และสร้างโปรเจกต์ใหม่ๆ เสมอ</p>
+        <div class="contacts" aria-label="Contacts">
+          <a class="icon-btn" href="#" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.17-3.37-1.17-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.54 2.36 1.1 2.94.84.09-.66.35-1.1.63-1.35-2.22-.25-4.55-1.11-4.55-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.34 1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.6 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .26.18.58.69.48A10.02 10.02 0 0 0 22 12c0-5.52-4.48-10-10-10z" fill="currentColor"/></svg>
+          </a>
+          <a class="icon-btn" href="mailto:youremail@example.com" title="Email">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6.5V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 6.5l-9 6-9-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="icon-btn" href="#" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="20" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M7 10v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="7" cy="7" r="1" fill="currentColor"/><path d="M12 10v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M12 7c0-.6.4-1 1-1s1 .4 1 1v0" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </a>
+          <a class="icon-btn" href="#" title="Location">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s6-4.35 6-9a6 6 0 1 0-12 0c0 4.65 6 9 6 9z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="11" r="1.75" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title"><strong>About</strong><span class="muted-small">Student • Learner</span></div>
+        <p class="muted-small" style="margin-top:8px">สนใจด้าน Web Development, UI/UX และการพัฒนาเครื่องมือเล็ก ๆ เพื่อช่วยงาน</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="card resume">
+        <div class="greeting">
+          <div style="flex:1">
+            <h1>สวัสดี! ผม/ดิฉันชื่อ Paramet Sintrako 👋</h1>
+            <div class="typing" id="type-target" aria-live="polite"></div>
+            <div class="stack-list" style="margin-top:12px">
+              <span class="chip">💻 JavaScript</span>
+              <span class="chip">🌐 HTML & CSS</span>
+              <span class="chip">⚛️ Learning Frameworks</span>
+              <span class="chip">🔧 Dev Tools</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted-small" style="margin-top:6px">นี่คือส่วน Digital Resume ของผม — สรุปสั้นๆ และลิงก์ไปยังโปรเจกต์ที่น่าสนใจ</p>
+      </section>
+
+      <section>
+        <div class="section-title" style="margin-bottom:8px"><strong>Showcase Projects</strong><span class="muted-small">Pinned</span></div>
+        <div class="projects-grid">
+          <!-- 4 project cards -->
+          <article class="project-card card">
+            <h3>Project Atlas</h3>
+            <p>เว็บแผนที่เล็กๆ แสดงข้อมูลตำแหน่งและฟิลเตอร์</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span></div>
+            <div class="cta"><a class="btn" href="#">View</a></div>
+          </article>
+
+          <article class="project-card card">
+            <h3>Todo Minimal</h3>
+            <p>แอปจัดการงานด้วย LocalStorage และ drag & drop</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span></div>
+            <div class="cta"><a class="btn" href="#">View</a></div>
+          </article>
+
+          <article class="project-card card">
+            <h3>Portfolio Lite</h3>
+            <p>Template พอร์ตฟอลิโอสำหรับนักเรียนและนักศึกษา</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+            <div class="cta"><a class="btn" href="#">View</a></div>
+          </article>
+
+          <article class="project-card card">
+            <h3>Contrib Mock</h3>
+            <p>ตัวอย่างการแสดงกราฟ Contribution แบบสวยงาม</p>
+            <div class="tags"><span class="tag">JS</span><span class="tag">CSS</span></div>
+            <div class="cta"><a class="btn" href="#">View</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="card contrib" style="margin-top:6px">
+        <div class="section-title" style="margin-bottom:12px"><strong>Contribution Graph</strong><span class="muted-small">Mock activity</span></div>
+        <div id="contribGrid" class="contrib-grid" aria-label="Contribution graph">
+          <!-- squares appended by JS -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // Typing effect
+    (function(){
+      const el = document.getElementById('type-target');
+      const texts = [
+        'ผมชอบเขียนโค้ดและเรียนรู้เทคโนโลยีใหม่ๆ...',
+        'I build small web tools, interfaces and experiments.',
+        'กำลังศึกษา Frontend, UI/UX และระบบพื้นฐานของเว็บ.'
+      ];
+      let idx = 0, char = 0, forward = true, waiting = false;
+      function tick(){
+        if(waiting) return;
+        const txt = texts[idx];
+        if(forward){
+          char++;
+          if(char>txt.length){ waiting = true; setTimeout(()=>{forward=false;waiting=false},1200); }
+        } else {
+          char--;
+          if(char===0){ waiting=true; setTimeout(()=>{forward=true; idx=(idx+1)%texts.length; waiting=false},400); }
+        }
+        el.textContent = txt.slice(0,char) + (char%2? '▌':'');
+      }
+      el.textContent='';
+      setInterval(tick,70);
+    })();
+
+    // Contribution grid mockup
+    (function(){
+      const grid = document.getElementById('contribGrid');
+      const cols = 12; const rows = 7; // create grid of small squares
+      for(let r=0;r<rows;r++){
+        for(let c=0;c<cols;c++){
+          const div = document.createElement('div');
+          div.className='square';
+          // random level 0-4
+          const lvl = Math.random()<0.25? Math.ceil(Math.random()*4): Math.floor(Math.random()*2);
+          div.setAttribute('data-level', lvl);
+          const count = lvl* (Math.floor(Math.random()*5)+1);
+          const date = new Date(); date.setDate(date.getDate() - ((rows*r)+c));
+          const dd = date.toLocaleDateString('en-GB');
+          // tooltip
+          const tip = document.createElement('div'); tip.className='tooltip';
+          tip.textContent = `${dd} — ${count} contributions`;
+          div.appendChild(tip);
+          // accessibility
+          div.setAttribute('role','img'); div.setAttribute('aria-label', `${count} contributions on ${dd}`);
+          grid.appendChild(div);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramet Sintrako | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.8);
+            --border-color: rgba(48, 54, 61, 0.8);
+            --neon-green: #39ff14;
+            --text-main: #e6edf3;
+            --text-secondary: #8b949e;
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 50%, #161b22 0%, #0d1117 100%);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem 5%;
+        }
+
+        /* Container Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* Sidebar Style */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            height: fit-content;
+        }
+
+        .profile-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            border: 3px solid var(--neon-green);
+            object-fit: cover;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        }
+
+        .profile-info h1 { font-size: 1.5rem; color: var(--neon-green); }
+        .profile-info p { color: var(--text-secondary); margin-bottom: 1rem; }
+
+        .contact-list { list-style: none; }
+        .contact-list li { 
+            margin-bottom: 0.8rem; 
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-list a { color: var(--text-main); text-decoration: none; transition: 0.3s; }
+        .contact-list a:hover { color: var(--neon-green); }
+
+        /* Main Content Style */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Typing Effect Section */
+        .readme-card h2 { margin-bottom: 1rem; }
+        #typing-text {
+            color: var(--neon-green);
+            font-weight: 600;
+            border-right: 2px solid var(--neon-green);
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+        .tech-tag {
+            background: rgba(57, 255, 20, 0.1);
+            color: var(--neon-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--neon-green);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+        }
+        .project-card h3 { color: var(--neon-green); margin-bottom: 0.5rem; }
+        .project-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; }
+        .btn-view {
+            display: inline-block;
+            padding: 6px 16px;
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .btn-view:hover { background: var(--neon-green); color: #000; }
+
+        /* Contribution Graph */
+        .graph-container {
+            overflow-x: auto;
+        }
+        .graph-grid {
+            display: grid;
+            grid-template-columns: repeat(25, 12px);
+            grid-template-rows: repeat(7, 12px);
+            gap: 4px;
+            margin-top: 1rem;
+        }
+        .cell {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: #161b22;
+        }
+        .cell:hover { border: 1px solid #fff; }
+        .cell.level-1 { background: #0e4429; }
+        .cell.level-2 { background: #006d32; }
+        .cell.level-3 { background: #26a641; }
+        .cell.level-4 { background: var(--neon-green); }
+
+        /* Responsive */
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { width: 100%; text-align: center; }
+            .profile-img { width: 150px; margin: 0 auto; }
+            .contact-list li { justify-content: center; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="glass-card">
+                <img src="screenshot.png" alt="Profile" class="profile-img">
+                <div class="profile-info">
+                    <h1>Paramet Sintrako</h1>
+                    <p>@student</p>
+                    <p style="font-size: 0.9rem;">Hello, nice to meet you. I'm passionate about building clean and functional web interfaces.</p>
+                </div>
+                <hr style="border: 0.5px solid var(--border-color); margin: 1rem 0;">
+                <ul class="contact-list">
+                    <li><i class="fa-brands fa-github"></i> <a href="#">github.com/paramet</a></li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:contact@example.com">email@example.com</a></li>
+                    <li><i class="fa-brands fa-linkedin"></i> <a href="#">LinkedIn Profile</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Thailand</li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section class="glass-card readme-card">
+                <h2>สวัสดี! ผมชื่อ Paramet 👋</h2>
+                <p style="font-size: 1.1rem;">
+                    <span id="typing-text"></span>
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">🚀 HTML5</span>
+                    <span class="tech-tag">🎨 CSS3/SASS</span>
+                    <span class="tech-tag">⚡ JavaScript</span>
+                    <span class="tech-tag">📱 Responsive Design</span>
+                    <span class="tech-tag">🛠️ Git/GitHub</span>
+                </div>
+            </section>
+
+            <section>
+                <h2 style="margin-bottom: 1rem;">Showcase Projects</h2>
+                <div class="projects-grid">
+                    <div class="glass-card project-card">
+                        <h3>Project One</h3>
+                        <p>E-commerce landing page with modern dark UI.</p>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="font-size: 0.8rem; color: var(--neon-green)">● HTML / CSS</span>
+                        </div>
+                        <a href="#" class="btn-view">View Repo</a>
+                    </div>
+                    <div class="glass-card project-card">
+                        <h3>Project Two</h3>
+                        <p>Personal finance tracking dashboard mockup.</p>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="font-size: 0.8rem; color: var(--neon-green)">● JavaScript</span>
+                        </div>
+                        <a href="#" class="btn-view">View Repo</a>
+                    </div>
+                    <div class="glass-card project-card">
+                        <h3>Project Three</h3>
+                        <p>Weather application using OpenWeather API.</p>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="font-size: 0.8rem; color: var(--neon-green)">● API Integration</span>
+                        </div>
+                        <a href="#" class="btn-view">View Repo</a>
+                    </div>
+                    <div class="glass-card project-card">
+                        <h3>Project Four</h3>
+                        <p>Interactive quiz app for tech interviews.</p>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="font-size: 0.8rem; color: var(--neon-green)">● Vanilla JS</span>
+                        </div>
+                        <a href="#" class="btn-view">View Repo</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card">
+                <h2 style="font-size: 1rem; margin-bottom: 0.5rem;">642 contributions in the last year</h2>
+                <div class="graph-container">
+                    <div class="graph-grid" id="contribution-graph">
+                        </div>
+                </div>
+                <p style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 10px;">
+                    Less <span style="display:inline-block; width:10px; height:10px; background:#161b22"></span>
+                    <span style="display:inline-block; width:10px; height:10px; background:var(--neon-green)"></span> More
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // --- Typing Effect Implementation ---
+        const textElement = document.getElementById('typing-text');
+        const phrases = [
+            "ผมชอบเขียนโค้ดและเรียนรู้เทคโนโลยีใหม่ๆ...",
+            "กำลังศึกษาการพัฒนาเว็บแบบ Full-stack...",
+            "ชื่นชอบการออกแบบ Modern UI/UX..."
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // --- Mockup Contribution Graph ---
+        function createGraph() {
+            const graph = document.getElementById('contribution-graph');
+            const totalCells = 25 * 7; // 175 cells for demo
+            
+            for (let i = 0; i < totalCells; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                
+                // Randomly assign intensity levels for mockup look
+                const rand = Math.random();
+                if (rand > 0.9) cell.classList.add('level-4');
+                else if (rand > 0.7) cell.classList.add('level-3');
+                else if (rand > 0.5) cell.classList.add('level-2');
+                else if (rand > 0.3) cell.classList.add('level-1');
+                
+                graph.appendChild(cell);
+            }
+        }
+
+        // Initialize functions
+        document.addEventListener('DOMContentLoaded', () => {
+            type();
+            createGraph();
+        });
+    </script>
+</body>
+</html>
